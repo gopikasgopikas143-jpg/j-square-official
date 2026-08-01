@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J Square Housing – Salem</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"/>
+<link rel="stylesheet" href="style.css" >
+<link rel="stylesheet" href="services/service.css" >
+<link rel="stylesheet" href="ani.css" >
+<link rel="stylesheet" href="enquiry-page/enquiry.css">
+<link rel="icon" type="image/png" href="./images/js.png">
+</head>
+<body>
+  <!-- ═══ LOADING SCREEN ═══ -->
+<div id="luxuryLoader">
+  <div class="loader-bg-orb orb1"></div>
+  <div class="loader-bg-orb orb2"></div>
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <div class="loader-logo-icon">J²</div>
+      <div class="loader-logo-name">J Square Housing</div>
+      <div class="loader-logo-sub">Salem's Premier Real Estate</div>
+    </div>
+    <div class="loader-bar-wrap">
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loaderBarFill"></div>
+      </div>
+      <div class="loader-bar-label" id="loaderBarLabel">Preparing your experience…</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CUSTOM CURSOR ═══ -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<!-- ═══ MOUSE GLOW ═══ -->
+<div id="mouseGlow"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home')">
+      <div class="logo-icon">J2</div>
+      <div class="logo-text">J Square Housing</div>
+    </a>
+    
+    <div class="nav-links">
+      <a href="#" class="active" onclick="showPage('home');setActive(this)">Home</a>
+      <a href="#" onclick="showPage('home');setActive(this);scrollToProjects()">Projects</a>
+      <a href="#" onclick="showPage('services');setActive(this)">Services</a>
+      <a href="#" onclick="showPage('tools');setActive(this)">Tools</a>
+      <a href="#" onclick="showPage('insights');setActive(this)">Insights</a>
+      <a href="#" onclick="showPage('post');setActive(this)">Post Land</a>
+      <a href="#" onclick="showPage('enquiry');setActive(this)">Enquiry</a>
+
+     <div class="lang-dropdown-container" id="langContainer">
+  <button class="lang-dropdown-btn" aria-haspopup="true" aria-expanded="false">
+    <svg class="globe-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+    <span id="currentLangLabel">🌐</span>
+    <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </button>
+  <div class="lang-dropdown-menu">
+    <button class="lang-opt" onclick="autoSwitchLang('ta')">தமிழ்</button>
+    <button class="lang-opt" onclick="autoSwitchLang('en')">English</button>
+  </div>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+      
+    </div>
+
+    <div class="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');closeMobile()">🏠 Home</a>
+  <a href="#" onclick="showPage('home');closeMobile();scrollToProjects()">🏗️ Projects</a>
+  <a href="#" onclick="showPage('services');closeMobile()">🛠️ Services</a>
+  <a href="#" onclick="showPage('tools');closeMobile()">🔧 Tools</a>
+  <a href="#" onclick="showPage('insights');closeMobile()">📊 Market Insights</a>
+  <a href="#" onclick="showPage('post');closeMobile()">🏷️ Post Land</a>
+  <a href="#" onclick="showPage('enquiry');closeMobile()">📞 Enquiry</a>
+ 
+  <div class="mobile-lang-section">
+    <span style="opacity: 0.6; font-size: 0.85rem; letter-spacing: 1px;">LANGUAGE / மொழி</span>
+    <div style="display: flex; gap: 10px; margin-top: 8px;">
+      <button class="mobile-lang-btn" onclick="changeSiteLang('ta');closeMobile()">தமிழ்</button>
+      <button class="mobile-lang-btn" onclick="changeSiteLang('en');closeMobile()">English</button>
+    </div>
+  </div>
+
+  <a href="#" class="mobile-cta" onclick="showPage('enquiry');closeMobile()">📞 Contact / Enquiry</a>
+</div>
+
+<!-- SITE TOAST -->
+<div class="toast" id="toast">✅ Enquiry submitted! We'll contact you soon.</div>
+
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div class="page active" id="page-home">
+ <section class="hero">
+  <canvas id="heroBgCanvas" class="hero-bg-canvas"></canvas>
+  <div class="hero-grid"></div>
+    <canvas id="particleCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge"><span>🏆 Salem's #1 Trusted Real Estate Brand</span></div>
+    <h1>Building Spaces.<br><em>Shaping Futures.</em></h1>
+    <p>At J Square Housing, every square foot tells a story — of dreams, trust, and transformation. We craft premium DTCP-approved plots in Salem's fastest-growing corridors.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scrollToProjects()">🏗️ View Projects</button>
+      <button class="btn-outline" onclick="showPage('post')">🏷️ Post Your Land</button>
+    </div>
+  </div>
+
+  <!-- ✅ இது புதுசா add பண்றோம் — RIGHT SIDE SLIDER -->
+  <div class="hero-slider-wrap">
+    <div class="hero-slider" id="heroSlider">
+
+      <!-- SLIDE 1 — உங்கள் photo URL இங்க போடுங்க -->
+      <div class="hero-slide active" style="background-image:url('https://assets.architecturaldigest.in/photos/6008476888d5cb634511edd6/master/w_1600%2Cc_limit/Tamil-Nadu-Chettinad-Chettiar-home-6.jpg')">
+        <div class="hero-slide-label">
+          <strong>Premium Villa Plots</strong>
+          <span>📍 Fairlands, Salem</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 -->
+      <div class="hero-slide" style="background-image:url('https://images.homify.com/c_fill,f_auto,h_700,q_auto/v1530260312/p/photo/image/2618870/IMG-20180406-WA0107.jpg')">
+        <div class="hero-slide-label">
+          <strong>Serene Enclave</strong>
+          <span>📍 Seelanaickenpatti, Salem</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="hero-slide" style="background-image:url('https://assets.architecturaldigest.in/photos/6351231e9529c6b8e8846cd6/16:9/w_1280,c_limit/5%20beautiful%20Chennai%20homes%20that%20blend%20modernity%20and%20traditional%20Indian%20design.jpg')">
+        <div class="hero-slide-label">
+          <strong>Urban Heights</strong>
+          <span>📍 Ammapet, Salem</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="hero-slide" style="background-image:url('https://volzero.com/img/article/103571_banner.jpg')">
+        <div class="hero-slide-label">
+          <strong>DTCP Approved Plots</strong>
+          <span>📍 Hasthampatti, Salem</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="hero-slide" style="background-image:url('https://amazingarchitecture.com/storage/files/1742/architecture-projects/cubism-architects/n-cube-villa/n_cube_villa_cubism_architects_and_interiors_india-01.jpg')">
+        <div class="hero-slide-label">
+          <strong>Green Valley Layout</strong>
+          <span>📍 Gorimedu, Salem</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Dots -->
+    <div class="slider-dots" id="sliderDots">
+      <button class="sdot active" onclick="goSlide(0)"></button>
+      <button class="sdot" onclick="goSlide(1)"></button>
+      <button class="sdot" onclick="goSlide(2)"></button>
+      <button class="sdot" onclick="goSlide(3)"></button>
+      <button class="sdot" onclick="goSlide(4)"></button>
+    </div>
+
+    <!-- Arrows -->
+    <button class="slider-arrow left" onclick="goSlide(currentSlide-1)">&#8592;</button>
+    <button class="slider-arrow right" onclick="goSlide(currentSlide+1)">&#8594;</button>
+  </div>
+  <!-- /hero-slider-wrap -->
+
+</section>
+
+    <div class="hero-stats" id="heroStats">
+
+  <div class="hero-stat"><div class="hero-stat-num" data-target="8" data-suffix="+">0+</div><div class="hero-stat-label">Years Experience</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" data-target="500" data-suffix="+">0+</div><div class="hero-stat-label">Happy Customers</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" data-target="12" data-suffix="">0</div><div class="hero-stat-label">Active Projects</div></div>
+  <div class="hero-stat"><div class="hero-stat-num" data-target="100" data-suffix="%">0%</div><div class="hero-stat-label">DTCP Approved</div></div>
+</div>
+
+  <!-- ABOUT -->
+<section class="section about-section">
+    <div class="section-orb so1"></div>
+  <div class="section-orb so2"></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-label">About J Square Housing</div>
+      <h2 class="section-title">We don't just sell plots.<br>We craft spaces that <em class="title-italic">shape your future.</em></h2>
+      <p class="about-para">At J Square Housing, we focus on quality locations, transparent dealings, and layouts designed for modern living.</p>
+      <p class="about-para">Each of our layouts is designed with foresight, built on integrity, and inspired by the lifestyle aspirations of today's homeowners.</p>
+     <div class="about-values">
+           <div class="value-card" style="border: 2px solid#ccaa82c1; transition: border 0.3s ease;" onmouseenter="this.style.border='2px solid    #c59000'" onmouseleave="this.style.border='2px solid #ccaa82c1'"><div class="value-icon">💡</div><h4>500+ Happy Customers</h4><p>Building long-term trust through quality service</p></div>
+           <div class="value-card" style="border: 2px solid#ccaa82c1; transition: border 0.3s ease;" onmouseenter="this.style.border='2px solid    #c59000'" onmouseleave="this.style.border='2px solid #ccaa82c1'"><div class="value-icon">🌱</div><h4>15+ Premium Layouts</h4><p>Carefully planned projects designed for modern living</p></div>
+           <div class="value-card" style="border: 2px solid#ccaa82c1; transition: border 0.3s ease;" onmouseenter="this.style.border='2px solid    #c59000'" onmouseleave="this.style.border='2px solid #ccaa82c1'"><div class="value-icon">🤝</div><h4>100% Legal Verified</h4><p>Every project checked for legal clarity and safety</p></div>
+     <div class="value-card" style="border: 2px solid#ccaa82c1; transition: border 0.3s ease;" onmouseenter="this.style.border='2px solid    #c59000'" onmouseleave="this.style.border='2px solid #ccaa82c1'"><div class="value-icon">📞</div><h4>24/7 Customer Support</h4><p>Quick assistance whenever you need guidance</p></div>
+       </div>
+    </div>
+
+    <div class="about-img">
+      <div class="about-img-pattern"></div>
+      <div class="about-img-content">
+        <div class="about-quote">"A home is not found —<br>it's built with care."</div>
+        <ul class="edge-list">
+          <li>
+            <span class="edge-icon">✨</span>
+            <div class="edge-text">
+              <strong>Prime Growth Locations</strong>
+              <span>Projects located in fast-developing investment zones</span>
+            </div>
+          </li>
+          <li>
+            <span class="edge-icon">🏗️</span>
+            <div class="edge-text">
+              <strong>Quality Beyond Measure</strong>
+              <span>Durable materials, future-proof engineering</span>
+            </div>
+          </li>
+          <li>
+            <span class="edge-icon">📜</span>
+            <div class="edge-text">
+              <strong>End-to-End Support</strong>
+              <span>Guidance from property selection to final purchase</span>
+            </div>
+          </li>
+          <li>
+            <span class="edge-icon">🎳</span>
+            <div class="edge-text">
+              <strong>Investment-Focused Guidance</strong>
+              <span>Helping buyers choose high-potential properties</span>
+            </div>
+          </li>
+          <li>
+            <span class="edge-icon">🫆</span>
+            <div class="edge-text">
+              <strong>DTCP / RERA Verified Projects</strong>
+              <span>Legally verified layouts with trusted approvals</span>
+            </div>
+          </li>
+          <li>
+            <span class="edge-icon">📊</span>
+            <div class="edge-text">
+              <strong> Transparent Documentation </strong>
+              <span>No hidden costs, clear communication always</span>
+            </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- WHY CHOOSE -->
+<section class="section why-section">
+    <div class="section-orb so3"></div>
+  <div class="why-ticker-wrap">
+    <div class="why-ticker">
+
+      <div class="why-card">
+        <div class="why-icon-box">⚖</div>
+        <div class="why-card-text">
+          <h4>DTCP Approved</h4>
+          <p>All layouts carry full legal approvals</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📋</div>
+        <div class="why-card-text">
+          <h4>RERA Registered</h4>
+          <p>Fully compliant with government norms</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📍</div>
+        <div class="why-card-text">
+          <h4>Prime Locations</h4>
+          <p>Strategic plots in Salem's growth corridors</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📄</div>
+        <div class="why-card-text">
+          <h4>Clear Title Deeds</h4>
+          <p>Zero encumbrance, verified ownership</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">💰</div>
+        <div class="why-card-text">
+          <h4>Affordable Pricing</h4>
+          <p>Premium quality at fair market rates</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🏦</div>
+        <div class="why-card-text">
+          <h4>Bank Loan Approved</h4>
+          <p>All major banks sanction ready</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🛣</div>
+        <div class="why-card-text">
+          <h4>Road & Water Access</h4>
+          <p>Tar road, water line fully laid</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📞</div>
+        <div class="why-card-text">
+          <h4>24/7 Support</h4>
+          <p>Dedicated team for every query</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📈</div>
+        <div class="why-card-text">
+          <h4>High ROI Potential</h4>
+          <p>Plots in fast-appreciating zones</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🤝</div>
+        <div class="why-card-text">
+          <h4>Transparent Process</h4>
+          <p>No hidden costs, ever</p>
+        </div>
+      </div>
+
+      <!-- Duplicate for seamless loop -->
+      <div class="why-card">
+        <div class="why-icon-box">⚖</div>
+        <div class="why-card-text">
+          <h4>DTCP Approved</h4>
+          <p>All layouts carry full legal approvals</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📋</div>
+        <div class="why-card-text">
+          <h4>RERA Registered</h4>
+          <p>Fully compliant with government norms</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📍</div>
+        <div class="why-card-text">
+          <h4>Prime Locations</h4>
+          <p>Strategic plots in Salem's growth corridors</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📄</div>
+        <div class="why-card-text">
+          <h4>Clear Title Deeds</h4>
+          <p>Zero encumbrance, verified ownership</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">💰</div>
+        <div class="why-card-text">
+          <h4>Affordable Pricing</h4>
+          <p>Premium quality at fair market rates</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🏦</div>
+        <div class="why-card-text">
+          <h4>Bank Loan Approved</h4>
+          <p>All major banks sanction ready</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🛣</div>
+        <div class="why-card-text">
+          <h4>Road & Water Access</h4>
+          <p>Tar road, water line fully laid</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📞</div>
+        <div class="why-card-text">
+          <h4>24/7 Support</h4>
+          <p>Dedicated team for every query</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">📈</div>
+        <div class="why-card-text">
+          <h4>High ROI Potential</h4>
+          <p>Plots in fast-appreciating zones</p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon-box">🤝</div>
+        <div class="why-card-text">
+          <h4>Transparent Process</h4>
+          <p>No hidden costs, ever</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- PROJECTS WITH REAL PHOTOS -->
+  <section class="section" id="projects-section" style="background:var(--cream);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;">  
+   <div class="section-label" style="font-size: 18px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">projects</div>
+       <button class="btn-primary"  onclick="window.openEnqForm('property')" style="padding:10px 20px;font-size:0.85rem;">Enquire Now →</button>
+    </div>
+    <div class="projects-grid">
+      <!-- Project 1 — Real Photo -->
+      <div class="proj-card">
+        <div class="proj-img">
+          <img src="https://amazingarchitecture.com/storage/files/1742/architecture-projects/cubism-architects/n-cube-villa/n_cube_villa_cubism_architects_and_interiors_india-01.jpg" alt="J Square Green Valley">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-badge">DTCP Approved</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-location">📍 Hasthampatti, Salem</div>
+          <div class="proj-title">J Square Green Valley</div>
+          <div class="proj-details">
+            <div class="proj-detail"><strong>120 Plots</strong>Total Units</div>
+            <div class="proj-detail"><strong>600–1200</strong>sq.ft Range</div>
+            <div class="proj-detail"><strong>Ready</strong>Status</div>
+          </div>
+          <div class="proj-price">₹29 Lakhs onwards</div>
+          <div class="proj-tags"><span class="tag green">DTCP ✓</span><span class="tag">Corner Plots</span><span class="tag">Park Facing</span></div>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="proj-card">
+        <div class="proj-img">
+          <img src="https://images.homify.com/c_fill,f_auto,h_700,q_auto/v1530260312/p/photo/image/2618870/IMG-20180406-WA0107.jpg" alt="J Square Serene Enclave">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-badge">New Launch</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-location">📍 Seelanaickenpatti, Salem</div>
+          <div class="proj-title">J Square Serene Enclave</div>
+          <div class="proj-details">
+            <div class="proj-detail"><strong>85 Plots</strong>Total Units</div>
+            <div class="proj-detail"><strong>800–2400</strong>sq.ft Range</div>
+            <div class="proj-detail"><strong>Booking</strong>Status</div>
+          </div>
+          <div class="proj-price">₹18.5 Lakhs onwards</div>
+          <div class="proj-tags"><span class="tag green">DTCP ✓</span><span class="tag">BT Road Access</span><span class="tag">Water Supply</span></div>
+        </div>
+      </div>
+      <!-- Project 3 -->
+      <div class="proj-card">
+        <div class="proj-img">
+          <img src="https://assets.architecturaldigest.in/photos/6351231e9529c6b8e8846cd6/16:9/w_1280,c_limit/5%20beautiful%20Chennai%20homes%20that%20blend%20modernity%20and%20traditional%20Indian%20design.jpg" alt="J Square Urban Heights">
+          <div class="proj-img-overlay"></div>
+          <div class="proj-badge">Sold Out 95%</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-location">📍 Ammapet, Salem</div>
+          <div class="proj-title">J Square Urban Heights</div>
+          <div class="proj-details">
+            <div class="proj-detail"><strong>60 Plots</strong>Total Units</div>
+            <div class="proj-detail"><strong>1200–2400</strong>sq.ft Range</div>
+            <div class="proj-detail"><strong>5 Left</strong>Status</div>
+          </div>
+          <div class="proj-price">₹48 Lakhs onwards</div>
+          <div class="proj-tags"><span class="tag green">DTCP ✓</span><span class="tag">City Centre</span><span class="tag">Premium</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;">
+
+    </div>
+  </section>
+<!-- TESTIMONIALS -->
+<section class="section testimonials" id="testimonials-section">
+
+  <div style="text-align:center;">
+    <h2 class="section-title" style="padding-left:0;">What our clients say</h2>
+  </div>
+
+  <!-- HORIZONTAL SCROLL TRACK -->
+  <div class="test-scroll-track" id="testGrid">
+
+  
+
+  </div>
+
+  <!-- WRITE A REVIEW — bottom right -->
+ <div style="padding:0 8%; margin-top:24px; display:flex; justify-content:flex-end;">
+  <button class="btn-write-review" id="btnWriteReview" onclick="openReviewOverlay()">✦ Write a Review</button>
+</div>
+</section>
+
+<!-- STEP 2 — Details -->
+    </div><!-- post-panel-body close -->
+  </div><!-- post-panel close -->
+ <!-- REVIEW OVERLAY -->
+<!-- இப்படி மாத்துங்க -->
+<div class="overlay-backdrop" id="reviewOverlay" style="display:none;">
+  <div class="post-panel">
+    <div class="post-panel-header">
+      <button class="close-btn" onclick="closeReviewOverlay()">✕</button>
+      <h2>Write a <em>Review</em></h2>
+      <p>Share your experience with J Square Housing</p>
+    </div>
+    <div class="post-panel-body">
+
+      <!-- User info -->
+      <div id="reviewUserInfo" style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding:12px;background:var(--cream2);border-radius:10px;">
+        <img id="reviewUserPhoto" src="" width="40" height="40" style="border-radius:50%;border:2px solid var(--gold);display:none;">
+        <div>
+          <div id="reviewUserName" style="font-weight:700;font-size:0.9rem;color:var(--dark);"></div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">✅ Verified Google Account</div>
+        </div>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="pf">
+        <label>Your Rating</label>
+        <div id="starPicker" style="display:flex;gap:6px;font-size:1.8rem;cursor:pointer;">
+          <span onclick="setReviewStar(1)" class="rstar">☆</span>
+          <span onclick="setReviewStar(2)" class="rstar">☆</span>
+          <span onclick="setReviewStar(3)" class="rstar">☆</span>
+          <span onclick="setReviewStar(4)" class="rstar">☆</span>
+          <span onclick="setReviewStar(5)" class="rstar">☆</span>
+        </div>
+      </div>
+
+      <!-- Review Text -->
+      <div class="pf">
+        <label>Your Review *</label>
+        <textarea id="reviewText" placeholder="Tell us about your experience..." style="height:110px;resize:none;"></textarea>
+      </div>
+       <div class="pf">
+         <label>Your District</label>
+           <select id="rLoc">
+              <option value="Salem" selected>📍 Salem (Default)</option>
+              <option value="Ariyalur">Ariyalur</option>
+              <option value="Chengalpattu">Chengalpattu</option>
+               <option value="Chennai">Chennai</option>
+                 <option value="Coimbatore">Coimbatore</option>
+                 <option value="Cuddalore">Cuddalore</option>
+                 <option value="Dharmapuri">Dharmapuri</option>
+                 <option value="Dindigul">Dindigul</option>
+                 <option value="Erode">Erode</option>
+                 <option value="Kallakurichi">Kallakurichi</option>
+                 <option value="Kanchipuram">Kanchipuram</option>
+                  <option value="Kanyakumari">Kanyakumari</option>
+                 <option value="Karur">Karur</option>
+                  <option value="Krishnagiri">Krishnagiri</option>
+                 <option value="Madurai">Madurai</option>
+                 <option value="Mayiladuthurai">Mayiladuthurai</option>
+                 <option value="Nagapattinam">Nagapattinam</option>
+                    <option value="Namakkal">Namakkal</option>
+                 <option value="Nilgiris">Nilgiris (Ooty)</option>
+                <option value="Perambalur">Perambalur</option>
+                   <option value="Pudukkottai">Pudukkottai</option>
+               <option value="Ramanathapuram">Ramanathapuram</option>
+                  <option value="Ranipet">Ranipet</option>
+               <option value="Sivaganga">Sivaganga</option>
+                 <option value="Thanjavur">Thanjavur</option>
+                <option value="Theni">Theni</option>
+                  <option value="Thoothukudi">Thoothukudi</option>
+                    <option value="Tiruchirappalli">Tiruchirappalli (Trichy)</option>
+                    <option value="Tirunelveli">Tirunelveli</option>
+                    <option value="Tirupathur">Tirupathur</option>
+                    <option value="Tiruppur">Tiruppur</option>
+                    <option value="Tiruvallur">Tiruvallur</option>
+                    <option value="Tiruvannamalai">Tiruvannamalai</option>
+                   <option value="Tiruvarur">Tiruvarur</option>
+                   <option value="Vellore">Vellore</option>
+                   <option value="Viluppuram">Viluppuram</option>
+                    <option value="Virudhunagar">Virudhunagar</option>
+             </select>
+         </div>
+      <!-- ✅ Secret Key WITH show/hide -->
+      <div class="pf">
+        <label>Secret Key * <span style="font-size:0.72rem;opacity:0.6;">(to delete your review later)</span></label>
+        <div style="position:relative;">
+          <input type="password" id="rKey" placeholder="Create a secret key"
+            style="width:100%;padding-right:44px;">
+          <button type="button" onclick="toggleKeyVis('rKey','rKeyEye')"
+            style="position:absolute;right:10px;top:50%;transform:translateY(-50%);
+            background:none;border:none;cursor:pointer;font-size:1.1rem;line-height:1;"
+            id="rKeyEye">👁️</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="panel-actions">
+        <button class="btn-cancel" onclick="closeReviewOverlay()">Cancel</button>
+        <button class="btn-next" onclick="submitUserReview()">Submit Review ✓</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- DELETE OVERLAY -->
+<!-- இதுவும் -->
+<div class="overlay-backdrop" id="deleteReviewOverlay" style="display:none;">
+  <div class="post-panel">
+    <div class="post-panel-header">
+      <button class="close-btn" onclick="closeDeleteOverlay()">✕</button>
+      <h2>Delete <em>Review</em></h2>
+      <p>Enter your secret key to delete this review.</p>
+    </div>
+    <div class="post-panel-body">
+      <div class="pf">
+        <label>Secret Key</label>
+        <!-- ✅ Show/hide toggle இங்கயும் -->
+        <div style="position:relative;">
+          <input type="password" id="deleteKeyInput" placeholder="Enter your secret key"
+            style="width:100%;padding-right:44px;">
+          <button type="button" onclick="toggleKeyVis('deleteKeyInput','delKeyEye')"
+            style="position:absolute;right:10px;top:50%;transform:translateY(-50%);
+            background:none;border:none;cursor:pointer;font-size:1.1rem;line-height:1;"
+            id="delKeyEye">👁️</button>
+        </div>
+      </div>
+      <div class="panel-actions">
+        <button class="btn-back" onclick="closeDeleteOverlay()">Cancel</button>
+        <button class="btn-next" onclick="confirmDeleteReview()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST —-->
+<div class="portal-toast" id="portalToast"></div>
+
+<!-- ═══════════ TOOLS PAGE ═══════════ -->
+<div class="page" id="page-tools">
+  <div style="text-align:center;padding:80px 8% 36px;max-width:700px;margin:0 auto">
+    <h1 style="font-family: 'Plus Jakarta Sans', 'DM Sans', sans-serif;">Professional<em> Tools </em>for <span class="shine-word">END</span> to <span class="shine-word">END</span> guide</h1>
+  </div>
+  <div style="padding:0 5% 80px">
+    <div id="catBar" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px"></div>
+    <div id="toolGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px"></div>
+    <div id="toolContainer" style="display:none"></div>
+  </div>
+</div>
+<!-- ═══════════ INSIGHTS PAGE ═══════════ -->
+<div class="page" id="page-insights">
+  <div class="insights-header">
+    <div class="section-label" style="color:var(--gold);">Market Intelligence</div>
+    <h1>Salem District Property Insights</h1>
+    <p>Current market prices, growth trends, and infrastructure ratings</p>
+  </div>
+  <div class="filter-bar">
+    <label>Filter:</label>
+    <select id="insights-filter" onchange="filterInsights()">
+      <option value="all">All Areas</option>
+      <option value="high">High Growth (7%+)</option>
+      <option value="affordable">Affordable</option>
+      <option value="premium">Premium</option>
+    </select>
+    <input type="text" id="insights-search" placeholder="🔍 Search area..." oninput="filterInsights()" style="width:200px;">
+  </div>
+  <div class="insights-body">
+    <div class="area-cards" id="area-cards-grid"></div>
+    <div class="price-table-wrap">
+      <table class="price-table" id="price-table">
+        <thead><tr><th>Area</th><th>Base Price / sq.ft</th><th>Annual Growth</th><th>Infra Rating</th><th>Trend</th></tr></thead>
+        <tbody id="price-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SERVICES PAGE ═══════════ -->
+<div class="page" id="page-services">
+
+  <!-- HERO -->
+  <div class="lsvc-hero">
+    <div class="lsvc-hero-bg"></div>
+    <div class="lsvc-hero-grid"></div>
+    <canvas id="svcOrbitCanvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+    <div class="lsvc-particles" id="lsvcParticles"></div>
+    <div class="lsvc-hero-content">
+      <h1 class="lsvc-h1">Premium Real Estate<br/>Services For <em>Smarter</em><br/>Property Decisions.</h1>
+      <div class="lsvc-divider"></div>
+      <p class="lsvc-sub">Property consultation, certified valuation, legal verification, investment guidance, documentation support &amp; Vastu expertise — all under one roof.</p>
+      <div class="lsvc-btns">
+        <button class="lsvc-btn-primary" onclick="window.openEnqForm('general')">Get Consultation</button>
+        <button class="lsvc-btn-secondary" onclick="document.getElementById('lsvc-cards').scrollIntoView({behavior:'smooth'})">Explore Services ↓</button>
+      </div>
+    </div>
+    <div class="lsvc-stats">
+      <div class="lsvc-stat"><span class="lsvc-stat-num">500+</span><span class="lsvc-stat-label">Happy Clients</span></div>
+      <div class="lsvc-stat"><span class="lsvc-stat-num">12</span><span class="lsvc-stat-label">Years Experience</span></div>
+      <div class="lsvc-stat"><span class="lsvc-stat-num">4.9★</span><span class="lsvc-stat-label">Client Rating</span></div>
+    </div>
+    <div class="lsvc-scroll-ind"><div class="lsvc-scroll-line"></div><span>Scroll</span></div>
+  </div>
+
+  <!-- FILTER PILLS -->
+  <div class="lsvc-filter-bar">
+    <div class="lsvc-pills" id="lsvcPills">
+      <button class="lsvc-pill active" data-cat="all">All Services</button>
+      <button class="lsvc-pill" data-cat="consultation">Consultation</button>
+      <button class="lsvc-pill" data-cat="valuation">Valuation</button>
+      <button class="lsvc-pill" data-cat="legal">Legal</button>
+      <button class="lsvc-pill" data-cat="investment">Investment</button>
+      <button class="lsvc-pill" data-cat="docs">Documentation</button>
+      <button class="lsvc-pill" data-cat="vastu">Vastu</button>
+    </div>
+  </div>
+
+  <!-- SERVICE CARDS -->
+  <div class="lsvc-cards-section" id="lsvc-cards">
+    <div class="lsvc-section-head">
+      <div class="lsvc-tag">What We Offer</div>
+      <h2 class="lsvc-sh2">Six Pillars of Property Excellence</h2>
+      <p class="lsvc-sdesc">Each service is crafted to protect your investment, ensure legal clarity, and maximize the value of every property decision you make.</p>
+    </div>
+    <div class="lsvc-grid" id="lsvcGrid">
+
+      <div class="lsvc-card" data-cat="consultation">
+        <div class="lsvc-card-num">01</div>
+        <div class="lsvc-card-icon">🧭</div>
+        <div class="lsvc-card-title">Property Consultation</div>
+        <p class="lsvc-card-desc">Expert end-to-end guidance for buyers, sellers, and investors navigating Salem real estate.</p>
+        <ul class="lsvc-feats">
+          <li>Site visit &amp; location analysis</li>
+          <li>Market pricing guidance</li>
+          <li>Shortlisting &amp; comparison</li>
+          <li>Negotiation support</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ 1–3 Days</span>
+          <span class="lsvc-badge">✓ Free First Call</span>
+        </div>
+        <button class="lsvc-card-cta" onclick="window.openEnqForm('property')">Book Consultation <span class="lsvc-arrow">→</span></button>
+      </div>
+
+      <div class="lsvc-card" data-cat="valuation">
+        <div class="lsvc-card-num">02</div>
+        <div class="lsvc-card-icon">📊</div>
+        <div class="lsvc-card-title">Property Valuation</div>
+        <p class="lsvc-card-desc">Certified valuations accepted by banks, courts, and government bodies for purchase or loans.</p>
+        <ul class="lsvc-feats">
+          <li>Market value assessment</li>
+          <li>Bank-approved reports</li>
+          <li>Stamp duty valuation</li>
+          <li>Investment value analysis</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ 24–48 hrs</span>
+          <span class="lsvc-badge">✓ Bank Accepted</span>
+        </div>
+        <button class="lsvc-card-cta"  onclick="window.openEnqForm('price')">Get Valuation <span class="lsvc-arrow">→</span></button>
+      </div>
+
+      <div class="lsvc-card" data-cat="legal">
+        <div class="lsvc-card-num">03</div>
+        <div class="lsvc-card-icon">⚖️</div>
+        <div class="lsvc-card-title">Legal Verification</div>
+        <p class="lsvc-card-desc">Complete title deed scrutiny and encumbrance checks — buy without legal liabilities.</p>
+        <ul class="lsvc-feats">
+          <li>Title deed scrutiny</li>
+          <li>Encumbrance certificate</li>
+          <li>Patta / Chitta verification</li>
+          <li>DTCP / RERA approval check</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ 3–5 Days</span>
+          <span class="lsvc-badge">✓ Court Verified</span>
+        </div>
+        <button class="lsvc-card-cta"  onclick="window.openEnqForm('legal')">Verify Property <span class="lsvc-arrow">→</span></button>
+      </div>
+
+      <div class="lsvc-card" data-cat="investment">
+        <div class="lsvc-card-num">04</div>
+        <div class="lsvc-card-icon">💹</div>
+        <div class="lsvc-card-title">Investment Advisory</div>
+        <p class="lsvc-card-desc">Data-driven investment strategy for plots in Salem's high-growth corridors.</p>
+        <ul class="lsvc-feats">
+          <li>ROI projection reports</li>
+          <li>Growth zone mapping</li>
+          <li>Risk assessment</li>
+          <li>Portfolio diversification</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ 2–4 Days</span>
+          <span class="lsvc-badge">✓ Expert Certified</span>
+        </div>
+        <button class="lsvc-card-cta"  onclick="window.openEnqForm('investment')">Invest Smarter <span class="lsvc-arrow">→</span></button>
+      </div>
+
+      <div class="lsvc-card" data-cat="docs">
+        <div class="lsvc-card-num">05</div>
+        <div class="lsvc-card-icon">📋</div>
+        <div class="lsvc-card-title">Documentation</div>
+        <p class="lsvc-card-desc">Seamless handling of all property paperwork — sale deeds, agreements, registration.</p>
+        <ul class="lsvc-feats">
+          <li>Sale deed drafting</li>
+          <li>Registration assistance</li>
+          <li>Home loan documentation</li>
+          <li>Government liaison</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ 1–7 Days</span>
+          <span class="lsvc-badge">✓ 100% Accurate</span>
+        </div>
+        <button class="lsvc-card-cta"  onclick="window.openEnqForm('legal')">Start Paperwork <span class="lsvc-arrow">→</span></button>
+      </div>
+
+      <div class="lsvc-card" data-cat="vastu">
+        <div class="lsvc-card-num">06</div>
+        <div class="lsvc-card-icon">🔮</div>
+        <div class="lsvc-card-title">Vastu Services</div>
+        <p class="lsvc-card-desc">Traditional Vastu Shastra expertise combined with modern architectural planning.</p>
+        <ul class="lsvc-feats">
+          <li>Plot orientation analysis</li>
+          <li>Main door direction</li>
+          <li>Room placement guidance</li>
+          <li>Post-purchase Vastu report</li>
+        </ul>
+        <div class="lsvc-card-meta">
+          <span class="lsvc-badge">⏱ Same Day</span>
+          <span class="lsvc-badge">✓ Certified Expert</span>
+        </div>
+        <button class="lsvc-card-cta"  onclick="window.openEnqForm('construction')">Get Vastu Report <span class="lsvc-arrow">→</span></button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="lsvc-process">
+    <div class="lsvc-section-head" style="text-align:center">
+      <div class="lsvc-tag">How It Works</div>
+      <h2 class="lsvc-sh2">Our 5-Step Service Process</h2>
+    </div>
+    <div class="lsvc-process-track">
+      <div class="lsvc-proc-line"></div>
+      <div class="lsvc-proc-fill"></div>
+      <div class="lsvc-proc-steps">
+        <div class="lsvc-step"><div class="lsvc-step-circle"><span class="lsvc-step-ico">💬</span><span class="lsvc-step-n">01</span></div><div class="lsvc-step-title">Consultation</div><div class="lsvc-step-desc">Share your requirements</div></div>
+        <div class="lsvc-step"><div class="lsvc-step-circle"><span class="lsvc-step-ico">🔍</span><span class="lsvc-step-n">02</span></div><div class="lsvc-step-title">Expert Review</div><div class="lsvc-step-desc">Team analyses details</div></div>
+        <div class="lsvc-step"><div class="lsvc-step-circle"><span class="lsvc-step-ico">✅</span><span class="lsvc-step-n">03</span></div><div class="lsvc-step-title">Verification</div><div class="lsvc-step-desc">Legal cross-check</div></div>
+        <div class="lsvc-step"><div class="lsvc-step-circle"><span class="lsvc-step-ico">📄</span><span class="lsvc-step-n">04</span></div><div class="lsvc-step-title">Final Report</div><div class="lsvc-step-desc">Certified delivery</div></div>
+        <div class="lsvc-step"><div class="lsvc-step-circle"><span class="lsvc-step-ico">🎯</span><span class="lsvc-step-n">05</span></div><div class="lsvc-step-title">Completion</div><div class="lsvc-step-desc">Ongoing support</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="lsvc-why">
+    <div class="lsvc-why-left">
+      <div class="lsvc-tag">Why Choose Us</div>
+      <h2 class="lsvc-sh2">Built on Trust.<br/>Driven by Results.</h2>
+      <p class="lsvc-sdesc">Salem's most trusted partner combining deep local expertise with complete transparency.</p>
+      <div class="lsvc-counters">
+        <div class="lsvc-counter"><span class="lsvc-cnt-num" data-target="500" data-suffix="+">0+</span><span class="lsvc-cnt-label">Happy Clients</span></div>
+        <div class="lsvc-counter"><span class="lsvc-cnt-num" data-target="12" data-suffix="">0</span><span class="lsvc-cnt-label">Years of Trust</span></div>
+        <div class="lsvc-counter"><span class="lsvc-cnt-num" data-target="98" data-suffix="%">0%</span><span class="lsvc-cnt-label">Satisfaction</span></div>
+        <div class="lsvc-counter"><span class="lsvc-cnt-num" data-target="200" data-suffix="+">0+</span><span class="lsvc-cnt-label">Projects Closed</span></div>
+      </div>
+    </div>
+    <div class="lsvc-why-right">
+      <div class="lsvc-why-card lsvc-why-wide">
+        <div class="lsvc-why-ico">🏅</div>
+        <div class="lsvc-why-title">Certified Real Estate Experts</div>
+        <p class="lsvc-why-text">All consultants are licensed professionals with domain expertise in legal, valuation, and investment advisory.</p>
+      </div>
+      <div class="lsvc-why-card">
+        <div class="lsvc-why-ico">🔍</div>
+        <div class="lsvc-why-title">Transparent Process</div>
+        <p class="lsvc-why-text">No hidden charges. Every step clearly communicated with documented progress updates.</p>
+      </div>
+      <div class="lsvc-why-card">
+        <div class="lsvc-why-ico">⚡</div>
+        <div class="lsvc-why-title">Fast Turnaround</div>
+        <p class="lsvc-why-text">Most reports delivered within 24–48 hours of document submission.</p>
+      </div>
+      <div class="lsvc-why-card">
+        <div class="lsvc-why-ico">📌</div>
+        <div class="lsvc-why-title">Local Salem Expertise</div>
+        <p class="lsvc-why-text">Deep-rooted knowledge of Salem, Erode, and surrounding growth corridors.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHO NEEDS IT -->
+  <div class="lsvc-who">
+    <div class="lsvc-section-head" style="text-align:center">
+      <div class="lsvc-tag">Perfect For</div>
+      <h2 class="lsvc-sh2">Who Needs Our Services?</h2>
+    </div>
+    <div class="lsvc-persona-grid">
+      <div class="lsvc-persona">🏠<div class="lsvc-persona-title">Property Buyers</div><div class="lsvc-persona-sub">Safe, legally verified purchase guidance</div></div>
+      <div class="lsvc-persona">🏷️<div class="lsvc-persona-title">Property Sellers</div><div class="lsvc-persona-sub">Maximize sale price with expert valuation</div></div>
+      <div class="lsvc-persona">📈<div class="lsvc-persona-title">Investors</div><div class="lsvc-persona-sub">High-ROI plots in growth corridors</div></div>
+      <div class="lsvc-persona">🏦<div class="lsvc-persona-title">Bank Loan Seekers</div><div class="lsvc-persona-sub">Bank-approved reports for faster loans</div></div>
+      <div class="lsvc-persona">📜<div class="lsvc-persona-title">Legal Documentation</div><div class="lsvc-persona-sub">End-to-end paperwork handled</div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="lsvc-faq">
+    <div class="lsvc-faq-left">
+      <h2 class="lsvc-sh2">Frequently Asked Questions</h2>
+      <p class="lsvc-sdesc">Can't find your answer? Call our expert team directly.</p>
+      <button class="lsvc-btn-primary" style="margin-top:24px" onclick="window.openEnqForm('general')">📞 Call Expert Team</button>
+    </div>
+    <div class="lsvc-faq-list">
+      <div class="lsvc-faq-item">
+        <div class="lsvc-faq-q" onclick="lsvcToggleFaq(this)">How long does legal verification take?<span class="lsvc-faq-icon">+</span></div>
+        <div class="lsvc-faq-a">Typically 3–5 working days for a complete check. Urgent cases can be fast-tracked within 48 hours.</div>
+      </div>
+      <div class="lsvc-faq-item">
+        <div class="lsvc-faq-q" onclick="lsvcToggleFaq(this)">Is your valuation report accepted by banks?<span class="lsvc-faq-icon">+</span></div>
+        <div class="lsvc-faq-a">Yes. Our reports are accepted by SBI, HDFC, ICICI, Axis Bank, and most cooperative banks.</div>
+      </div>
+      <div class="lsvc-faq-item">
+        <div class="lsvc-faq-q" onclick="lsvcToggleFaq(this)">Do you offer services outside Salem?<span class="lsvc-faq-icon">+</span></div>
+        <div class="lsvc-faq-a">We primarily serve Salem, Erode, and Namakkal districts. Call us to assess other locations.</div>
+      </div>
+      <div class="lsvc-faq-item">
+        <div class="lsvc-faq-q" onclick="lsvcToggleFaq(this)">Can I get Vastu consultation for an existing home?<span class="lsvc-faq-icon">+</span></div>
+        <div class="lsvc-faq-a">Absolutely. We offer both pre-purchase and post-construction Vastu consultations with remediation advice.</div>
+      </div>
+      <div class="lsvc-faq-item">
+        <div class="lsvc-faq-q" onclick="lsvcToggleFaq(this)">How is your consultation fee structured?<span class="lsvc-faq-icon">+</span></div>
+        <div class="lsvc-faq-a">First call is always free. All fees are transparent and disclosed upfront — no hidden charges ever.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="lsvc-cta" id="lsvc-cta">
+    <div class="lsvc-cta-glow"></div>
+    <div class="lsvc-cta-grid"></div>
+    <div class="lsvc-cta-inner">
+      <div class="lsvc-tag" style="justify-content:center">Take The Next Step</div>
+      <div class="lsvc-cta-divider"></div>
+      <h2 class="lsvc-cta-h2">Ready To Make Smarter<br/>Property Decisions?</h2>
+      <p class="lsvc-cta-sub">Join 500+ satisfied clients who trusted J Square Housing. First consultation is completely free.</p>
+      <div class="lsvc-cta-btns">
+        <button class="lsvc-btn-primary" onclick="window.openEnqForm('general')">📞 Call Expert Team</button>
+        <a href="https://wa.me/919876543210" class="lsvc-btn-secondary" target="_blank">💬 WhatsApp Us</a>
+      </div>
+      <div class="lsvc-trust-row">
+        <span class="lsvc-trust-item"><span class="lsvc-dot"></span>Free First Consultation</span>
+        <span class="lsvc-trust-item"><span class="lsvc-dot"></span>No Hidden Charges</span>
+        <span class="lsvc-trust-item"><span class="lsvc-dot"></span>Certified Professionals</span>
+        <span class="lsvc-trust-item"><span class="lsvc-dot"></span>12+ Years Trusted</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- ═══ END SERVICES PAGE ═══ -->
+
+<!---=====================================
+   POST PAGE — land-portal-v2 fully integrated
+   ========================================--> 
+<div class="page" id="page-post">
+  <div class="portal-page-wrap">
+    <!-- Header -->
+    <div class="portal-page-header">
+      <h2 style="padding-top: 10px;">Land <em>Listings</em> Portal</h2>
+      <div class="portal-gold-line"></div>
+      <p class="portal-sub">Sellers post their land directly. Buyers connect instantly — no middleman, no hidden fees. Just honest listings.</p>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="portal-toolbar">
+      <input type="text" class="portal-search" id="portalSearch" placeholder="🔍  Search area, title, location…" oninput="filterListings()">
+      <select class="portal-filter" id="portalTypeFilter" onchange="filterListings()">
+        <option value="">All Types</option>
+        <option value="residential">Residential</option>
+        <option value="commercial">Commercial</option>
+        <option value="farm">Farm Land</option>
+        <option value="plot">Open Plot</option>
+      </select>
+      <select class="portal-filter" id="portalAreaFilter" onchange="filterListings()">
+        <option value="">All Areas</option>
+        <option>Fairlands</option><option>Hasthampatti</option><option>Ammapet</option>
+        <option>Gorimedu</option><option>Seelanaickenpatti</option><option>Ayothiyapattinam</option>
+        <option>Udayapatti</option><option>Annathanapatti</option><option>Other Salem</option>
+      </select>
+      <button class="portal-post-btn" onclick="openPost()">+ Post Your Land</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="listings-grid" id="listingsGrid"></div>
+  
+</div>
+</div>
+<!-- POST OVERLAY — page-post க்கு கீழே paste பண்ணுங்க -->
+<div class="overlay-backdrop" id="postOverlay">
+  <div class="post-panel">
+    <div class="post-panel-header">
+      <button class="close-btn" onclick="closePost()">✕</button>
+      <h2>Post Your <em>Land</em></h2>
+      <p>Free listing — buyers contact you directly</p>
+    </div>
+    <div class="post-panel-body">
+
+      <!-- Step indicators -->
+      <div class="step-bar">
+        <div class="step-bubble active" id="sb1">1</div>
+        <div class="step-line active" id="sl1"></div>
+        <div class="step-bubble" id="sb2">2</div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-bubble" id="sb3">3</div>
+      </div>
+
+      <!-- STEP 1: Property Details -->
+      <div id="step1">
+        <p style="font-weight:600;margin-bottom:12px">📐 Property Details</p>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+          <div class="type-chip selected" data-v="residential" onclick="pickType(this)">🏘️ Residential</div>
+          <div class="type-chip" data-v="commercial" onclick="pickType(this)">🏢 Commercial</div>
+          <div class="type-chip" data-v="farm" onclick="pickType(this)">🌾 Farm</div>
+          <div class="type-chip" data-v="plot" onclick="pickType(this)">📐 Plot</div>
+        </div>
+
+        <div class="pf">
+          <label>Title *</label>
+          <input type="text" id="pTitle" placeholder="e.g. Corner Plot — Main Road Facing">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="pf">
+            <label>Cents *</label>
+            <input type="number" id="pCents" placeholder="e.g. 10" oninput="autoSqft()">
+          </div>
+          <div class="pf">
+            <label>Sq.ft (auto)</label>
+            <input type="number" id="pSqft" placeholder="auto-filled">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="pf">
+            <label>Area / Location *</label>
+            <select id="pLoc">
+              <option value="">Select Area</option>
+              <option>Fairlands</option>
+              <option>Hasthampatti</option>
+              <option>Ammapet</option>
+              <option>Gorimedu</option>
+              <option>Seelanaickenpatti</option>
+              <option>Ayothiyapattinam</option>
+              <option>Udayapatti</option>
+              <option>Annathanapatti</option>
+              <option>Other Salem</option>
+            </select>
+          </div>
+          <div class="pf">
+            <label>Full Address</label>
+            <input type="text" id="pAddr" placeholder="Street / Landmark">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="pf">
+            <label>Total Price (₹) *</label>
+            <input type="number" id="pPrice" placeholder="e.g. 2500000" oninput="autoPPS()">
+          </div>
+          <div class="pf">
+            <label>Price/sqft (₹) (auto)</label>
+            <input type="number" id="pPPS" placeholder="auto">
+          </div>
+        </div>
+
+        <div class="panel-actions">
+          <button class="btn-cancel" onclick="closePost()">Cancel</button>
+          <button class="btn-next" onclick="goStep(2)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Photos + Description -->
+      <div id="step2" style="display:none">
+        <p style="font-weight:600;margin-bottom:12px">📸 Photos & Description</p>
+
+        <!-- Photo upload area -->
+        <div id="photoDropArea" onclick="document.getElementById('photoInput').click()" style="
+  border: 2.5px dashed #c9a227;
+  border-radius: 12px;
+  background: #fdf8ec;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+">
+  <div style="font-size:36px; color:#c9a227; margin-bottom:10px;">📷</div>
+  <div style="font-size:15px; font-weight:600; color:#7a5c00; margin-bottom:4px;">
+    Click here to upload your land photos
+  </div>
+  <div style="font-size:12px; color:#a07c20; margin-bottom:14px;">
+    or drag & drop images anywhere in this box
+  </div>
+  <button type="button" onclick="event.stopPropagation(); document.getElementById('photoInput').click()" style="
+    background:#c9a227; color:#fff; border:none;
+    border-radius:8px; padding:10px 22px;
+    font-size:14px; font-weight:600; cursor:pointer;
+  ">📤 Choose Photos</button>
+  <div style="font-size:11px; color:#a07c20; margin-top:10px;">
+    JPG, PNG · max 5 photos · listings with photos get 3× more calls!
+  </div>
+  <div style="
+    position:absolute; top:-10px; right:12px;
+    background:#c9a227; color:#fff;
+    font-size:11px; padding:3px 10px; border-radius:20px;
+  ">3× more calls with photos!</div>
+</div>
+        <input type="file" id="photoInput" accept="image/*" multiple style="display:none" onchange="handlePhotoUpload(this)">
+        <div id="photoPreviewGrid" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+        <div id="photoCountInfo" style="font-size:0.78rem;color:var(--gold);margin-top:4px;"></div>
+
+        <div class="pf" style="margin-top:12px">
+          <label>Description</label>
+          <textarea id="pDesc" placeholder="Describe the plot — road access, water, facing, highlights..." style="height:80px;resize:none"></textarea>
+        </div>
+        <div class="pf">
+          <label>Features (comma separated)</label>
+          <input type="text" id="pFeats" placeholder="e.g. Corner Plot, Patta, East Facing, Bore Well">
+        </div>
+
+        <div class="panel-actions">
+          <button class="btn-back" onclick="goStep(1)">← Back</button>
+          <button class="btn-next" onclick="goStep(3)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Contact -->
+      <div id="step3" style="display:none">
+        <p style="font-weight:600;margin-bottom:12px">👤 Your Contact Details</p>
+
+        <div class="pf">
+          <label>Your Name *</label>
+          <input type="text" id="pName" placeholder="Full name">
+        </div>
+        <div class="pf">
+          <label>Phone Number *</label>
+          <input type="tel" id="pPhone" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="pf">
+          <label>You are a</label>
+          <select id="pRole">
+            <option value="owner">Direct Owner</option>
+            <option value="agent">Agent / Broker</option>
+          </select>
+        </div>
+        <div class="pf">
+          <label>Secret Key * <span style="font-size:0.75rem;opacity:0.6">(to edit/delete later)</span></label>
+          <input type="password" id="pKey" placeholder="Create a secret key">
+        </div>
+
+        <div class="panel-actions">
+          <button class="btn-back" onclick="goStep(2)">← Back</button>
+          <button class="btn-post" onclick="submitPost()">🚀 Post Listing</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Key Prompt Overlay -->
+<div class="overlay-backdrop" id="keyPromptOverlay">
+  <div class="post-panel" style="max-width:400px">
+    <div class="post-panel-header">
+      <button class="close-btn" onclick="closeKeyPrompt()">✕</button>
+      <h2>🔑 Verify <em>Identity</em></h2>
+      <p id="keyPromptMsg">Enter your secret key to continue.</p>
+    </div>
+    <div class="post-panel-body">
+      <div class="pf">
+        <label>Secret Key</label>
+        <input type="password" id="keyInput" placeholder="Enter your secret key">
+      </div>
+      <div class="panel-actions">
+        <button class="btn-cancel" onclick="closeKeyPrompt()">Cancel</button>
+        <button class="btn-next" id="keyConfirmBtn">Confirm →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mini Confirm -->
+<div class="overlay-backdrop" id="miniConfirm" style="display:none;align-items:center;justify-content:center;">
+  <div class="post-panel" style="max-width:360px;text-align:center;">
+    <div class="post-panel-body" style="padding:28px 24px;">
+      <div style="font-size:2rem;margin-bottom:12px;">⚠️</div>
+      <p id="mcMsg" style="font-size:1rem;font-weight:600;margin-bottom:20px;">Are you sure?</p>
+      <div style="display:flex;gap:12px;justify-content:center;">
+        <button id="mcNo" style="padding:10px 24px;border-radius:8px;border:1px solid #ccc;background:transparent;cursor:pointer;font-family:inherit;">Cancel</button>
+        <button id="mcYes" style="padding:10px 24px;border-radius:8px;border:none;background:#B94040;color:white;cursor:pointer;font-weight:700;font-family:inherit;">Yes, Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER — toast-க்கு வெளியே, தனியா -->
+<section id="ctaBanner" style="background:linear-gradient(135deg,var(--dark) 0%,var(--dark3) 100%);padding:60px 8%;text-align:center;">
+   <div class="section-orb so1"></div>
+  <div class="section-orb so2"></div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--white);margin-bottom:16px;">Your dream plot is waiting.<br>Let's build your legacy today.</h2>
+  <p style="color:rgba(255,255,255,0.55);margin-bottom:32px;">Join 500+ happy families who trust J Square Housing</p>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <button class="btn-primary"  onclick="window.openEnqForm('general')">📞 Get Free Consultation</button>
+    <button class="btn-outline" onclick="showPage('post')">🏷️ Post Your Land Free</button>
+  </div>
+</section>
+<div id="page-enquiry" class="page"></div>
+<!-- ===== FOOTER ===== -->
+<footer>
+  <!-- main grid -->
+  <div class="footer-grid">
+
+    <!-- COL 1 — BRAND -->
+    <div class="footer-col footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:40px;height:40px;background:#c9a227;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#1a1508;">J²</div>
+        <div>
+          <div style="font-size:15px;font-weight:700;color:#fff;">J Square Housing</div>
+          <div style="font-size:10px;color:#c9a227;letter-spacing:2px;text-transform:uppercase;">Homes | Lands | Developments</div>
+        </div>
+      </div>
+      <p>Building Salem's finest communities with trust, transparency, and timeless value.</p>
+      <!-- social -->
+      <div class="footer-social">
+        <a href="#" class="social-btn" style="border:1px solid #3b5998;color:#8b9dc3;">📘 Facebook</a>
+        <a href="#" class="social-btn" style="border:1px solid #c13584;color:#e1306c;">📸 Instagram</a>
+        <a href="https://wa.me/919361756057" class="social-btn" style="border:1px solid #25d366;color:#25d366;">💬 WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- COL 2 — NAVIGATE -->
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#" onclick="showPage('home');setActive(this)">Home</a>
+      <a href="#" onclick="showPage('home');setActive(this);scrollToProjects()">Projects</a>
+      <a href="#" onclick="showPage('services');setActive(this)">Services</a>
+      <a href="#" onclick="showPage('tools');setActive(this)">Tools</a>
+      <a href="#" onclick="showPage('insights');setActive(this)">Insights</a>
+      <a href="#" onclick="showPage('post');setActive(this)" class="footer-highlight-link">🏷️ Post Land Free</a>
+      <a href="#" onclick="showPage('enquiry');setActive(this)" class="footer-highlight-link">📩 Enquiry</a>
+      
+    </div>
+
+<!-- COL 3 — TOOLS -->
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <a href="#" onclick="showPage('tools')">EMI Calculator</a>
+      <a href="#" onclick="showPage('tools')">Unit Converter</a>
+      <a href="#" onclick="showPage('tools')">Stamp Duty</a>
+      <a href="#" onclick="showPage('tools')">Construction Cost</a>
+      <a href="#" onclick="showPage('tools')">ROI Calculator</a>
+      <a href="#" onclick="showPage('tools')">Property Valuation</a>
+      <a href="#" onclick="showPage('tools')">Vastu Sastram</a>
+      <a href="#" onclick="showPage('tools')" class="footer-highlight-link">🤖 AI Property Advisor</a>
+      <a href="#" onclick="showPage('tools')" class="footer-highlight-link">✨ AI Vastu Analyser</a>
+      <a href="#" onclick="showPage('tools')" class="footer-highlight-link">🧠 AI Plot Finder</a>
+    </div>
+<!-- COL 4 — SERVICES -->
+    <div class="footer-col">
+        <h4>Enquiry</h4>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('property',this)" style="color:#ccc;text-decoration:none;font-size:13px;">🏘️ Property</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('site-visit',this)" style="color:#ccc;text-decoration:none;font-size:13px;">📅 Site Visit</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('price',null)" style="color:#ccc;text-decoration:none;font-size:13px;">💰 Pricing</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('investment',null)" style="color:#ccc;text-decoration:none;font-size:13px;">📈 Investment</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('construction',null)" style="color:#ccc;text-decoration:none;font-size:13px;">🏗️ Build</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('loan',null)" style="color:#ccc;text-decoration:none;font-size:13px;">🏦 Loan</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('legal',null)" style="color:#ccc;text-decoration:none;font-size:13px;">📜 Legal</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('nri',null)" style="color:#ccc;text-decoration:none;font-size:13px;">✈️ NRI</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('complaint',null)" style="color:#ccc;text-decoration:none;font-size:13px;">⚠️ Complaint</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('feedback',null)" style="color:#ccc;text-decoration:none;font-size:13px;">💬 Feedback</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('career',null)" style="color:#ccc;text-decoration:none;font-size:13px;">💼 Career</a>
+          <a href="#" onclick="showPage('enquiry');switchEnqForm('general',null)" style="color:#ccc;text-decoration:none;font-size:13px;">✉️ General</a>
+    </div>
+
+    <!-- COL 5 — CONNECT + CONTACT -->
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="#" onclick="showPage('insights')">Market Insights</a>
+      <a href="#" onclick="showPage('enquiry')">Contact Us</a>
+      <a href="https://wa.me/919876543210">💬 WhatsApp Us</a>
+      <!-- contact box -->
+      <div class="footer-contact-box">
+        <div class="fcb-item">
+          <span>📞</span>
+          <a href="tel:+919361756057" style="color:inherit;text-decoration:none;">+919361756057</a>
+        </div>
+        <div class="fcb-item">
+          <span>📧</span>
+          <a href="mailto:jsquare.housing.official@gmail.com" style="color:inherit;text-decoration:none;">info@jsquarehousing.com</a>
+        </div>
+        <div class="fcb-item">
+          <span>📍</span> Salem, Tamil Nadu
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /footer-grid -->
+
+  <!-- bottom bar -->
+  <div class="footer-bottom">
+    <p>© 2024 J Square Housing. All rights reserved. Salem, Tamil Nadu.</p>
+    <div class="footer-badges">
+      <span class="footer-badge">DTCP ✓</span>
+      <span class="footer-badge" style="color:#4a9a6f;border-color:#4a9a6f;">RERA READY</span>
+      <span class="footer-badge" style="color:#6a9fd8;border-color:#6a9fd8;">ISO CERTIFIED</span>
+    </div>
+  </div>
+
+</footer>
+
+
+ <script>
+    (async () => {
+      const { createClient } = supabase;
+
+      // Same credentials as your main site
+      const sb = createClient(
+        'https://gevrzutbjnclmenmohmn.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdldnJ6dXRiam5jbG1lbm1vaG1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0Nzk1ODUsImV4cCI6MjA5NjA1NTU4NX0.N8SVnw2TqnibVGhNNaPs85hyl2Fm0apFjbdsVySre70'
+      );
+
+      // Supabase automatically reads the #access_token from the URL hash
+      const { data: { session }, error } = await sb.auth.getSession();
+
+      if (session && window.opener && !window.opener.closed) {
+        // Send session back to the main window
+        window.opener.postMessage(
+          { type: 'SUPABASE_AUTH_SUCCESS', session },
+          window.location.origin   // only send to our own origin
+        );
+      }
+
+      // Close popup regardless of success or failure
+      window.close();
+    })();
+  </script>
+<script src="translate.js" ></script>
+<script src="services/service.js" ></script>
+<script src="muhu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js" ></script>
+<script src="animations.js"></script>
+<script src="enquiry-page/enquiry.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5HHMSMSP58"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-5HHMSMSP58');
+</script>
+</body>
+</html>
